@@ -16,7 +16,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./Components/Asset/icon.png",
+        "foregroundImage": "./Components/Asset/logo.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.anirudhmahajan77.CUTell"

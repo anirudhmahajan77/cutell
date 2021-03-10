@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 class Onboarding extends React.Component {
     constructor(){
         super();
+        this.abortSub = new AbortController();
         this.styles = StyleSheet.create({
             background:{
                 width:'100%',
@@ -67,13 +68,9 @@ class Onboarding extends React.Component {
         });
     }
 
-    componentDidMount(){
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-              this.props.navigation.replace("Dashboard");
-            } else {
-            }
-          });
+    componentWillUnmount() {
+        //this.abortSub = new AbortController();
+        this.abortSub.abort();
     }
 
     render(){

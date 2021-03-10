@@ -9,6 +9,7 @@ import * as firebase from 'firebase';
 class UserProfile extends React.Component {
     constructor() {
         super();
+        this.abortSub = new AbortController();
         this.state = {
             uuid: '',
             image: 'https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg',
@@ -32,6 +33,8 @@ class UserProfile extends React.Component {
                 marginRight: 'auto',
                 marginTop: '24%',
                 marginBottom: '6%',
+                height: 'auto',
+                width: 'auto',
             },
             badge: {
                 marginLeft: 'auto',
@@ -120,9 +123,6 @@ class UserProfile extends React.Component {
         let user = firebase.database().ref('users/' + uid);
 
         const imageLink = this.uploadImage(image);
-        /*user.update({
-            photoURL: link,
-        })*/
     }
 
     onImgTap = async () => {
@@ -163,11 +163,14 @@ class UserProfile extends React.Component {
         });;
     }
 
+    componentWillUnmount() {
+        this.abortSub.abort();
+    }
+
     render() {
         return (
             <ImageBackground source={require('../Asset/about.png')} style={this.styles.background}>
                 <KeyboardAvoidingView style={this.styles.background}>
-
                     <View style={this.styles.container}>
                         <TouchableOpacity onPress={this.onImgTap} activeOpacity={0.8} >
                             <Avatar.Image size={150} source={{ uri: this.state.image }} style={this.styles.me} />

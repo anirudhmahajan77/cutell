@@ -8,6 +8,7 @@ import * as firebase from  'firebase';
 class Login extends Component {
     constructor(){
         super();
+        this.abortSub = new AbortController();
         this.styles = StyleSheet.create({
             background:{
                 width:'100%',
@@ -134,6 +135,12 @@ class Login extends Component {
         }
         
     }
+
+    componentWillUnmount() {
+        //this.abortSub = new AbortController();
+        this.abortSub.abort();
+    }
+
 
     render(){
         return(

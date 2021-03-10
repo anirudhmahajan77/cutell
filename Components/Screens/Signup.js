@@ -9,6 +9,7 @@ import * as firebase from 'firebase';
 class Signup extends Component {
     constructor() {
         super();
+        this.abortSub = new AbortController();
         this.styles = StyleSheet.create({
             background: {
                 width: '100%',
@@ -111,6 +112,11 @@ class Signup extends Component {
             phoneNumberHelper: false,
             passwordHelper: false,
         }
+    }
+
+    componentWillUnmount() {
+        //this.abortSub = new AbortController();
+        this.abortSub.abort();
     }
 
     signUpSubmit = async (navigation) => {

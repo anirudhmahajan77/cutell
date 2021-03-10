@@ -9,6 +9,7 @@ import * as firebase from "firebase";
 class AboutDev extends React.Component {
     constructor(){
         super();
+        this.abortSub = new AbortController();
         this.styles = StyleSheet.create({
             background:{
                 height: '100%',
@@ -68,10 +69,17 @@ class AboutDev extends React.Component {
                 marginRight: 10,
             },
             logout:{
-                
-            }
+                position: 'absolute',
+                right: 20,
+                top: 40,
+            },
         });
     }
+
+    componentWillUnmount() {
+        this.abortSub.abort();
+    }
+
 
     openInstagram = () => {
         WebBrowser.openBrowserAsync('https://instagram.com/anirudhmahajan77');
@@ -89,6 +97,7 @@ class AboutDev extends React.Component {
         WebBrowser.openBrowserAsync('tel:+91-7006204432');
     };
 
+    
     logOut = () => {
         firebase.auth().signOut()
             .then(()=>{
@@ -98,7 +107,6 @@ class AboutDev extends React.Component {
                 Alert.alert(error.message)
             })
     }
-
 
     render(){
         return(

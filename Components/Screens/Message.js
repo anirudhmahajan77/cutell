@@ -7,6 +7,7 @@ import * as firebase from "firebase";
 class Message extends React.Component {
     constructor() {
         super();
+        this.abortSub = new AbortController();
         this.state = {
             searchUID: '',
             users:[],
@@ -48,6 +49,11 @@ class Message extends React.Component {
             let regUsers = Object.values(datasnap.val());
             updateUserList(regUsers);
         })
+    }
+
+    componentWillUnmount() {
+        //this.abortSub = new AbortController();
+        this.abortSub.abort();
     }
 
     render() {

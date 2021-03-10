@@ -6,6 +6,7 @@ import {Avatar} from 'react-native-paper';
 class UserImage extends React.Component{
     constructor(){
         super();
+        this.abortSub = new AbortController();
         this.state = {
             name: '',
             photoURL: 'https://thumbs.dreamstime.com/b/default-avatar-profile-icon-vector-social-media-user-image-182145777.jpg',
@@ -32,6 +33,11 @@ class UserImage extends React.Component{
         this.props.navigation.setOptions({
             headerTitle:<Text>{user.name}</Text>
         })
+    }
+
+    componentWillUnmount() {
+        //this.abortSub = new AbortController();
+        this.abortSub.abort();
     }
 
     render(){
